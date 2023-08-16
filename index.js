@@ -21,7 +21,7 @@ const transporter = createTransport({
 
 app.post('/feedback', (req, res) => {
   try {
-    const { phone, loadingAddress, loadingDate, loadingStartTime, unloadingAddress, unloadingDate, unloadingStartTime } = req.body;
+    const { phone, loadingAddress, loadingDate, loadingStartTime, unloadingAddress, unloadingDate, unloadingStartTime, description} = req.body;
 
     const mailOptions = {
       from: "no-reply@gmail.com",
@@ -35,6 +35,7 @@ app.post('/feedback', (req, res) => {
         <h3>Unloading address: ${unloadingAddress}</h3>
         <h3>Unloading date: ${unloadingDate}</h3>
         <h3>Unloading start time: ${unloadingStartTime}</h3>
+        <h3>Description: </h3> <p>${description}</p>
       `,
     };
 
