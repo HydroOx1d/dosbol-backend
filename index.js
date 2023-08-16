@@ -3,9 +3,11 @@ require('dotenv').config({
 })
 const express = require('express')
 const { createTransport } = require('nodemailer')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const PORT = process.env.PORT || 3000
 
@@ -19,17 +21,20 @@ const transporter = createTransport({
 
 app.post('/feedback', (req, res) => {
   try {
-    const { email, name, phone, message } = req.body;
+    const { phone, loadingAddress, loadingDate, loadingStartTime, unloadingAddress, unloadingDate, unloadingStartTime } = req.body;
 
     const mailOptions = {
-      from: email,
+      from: "no-reply@gmail.com",
       to: process.env.GMAIL_USER,
-      subject: "Заказ",
+      subject: "Request",
       html: `
-        <h3>${email}</h3><br>
-        <h3>${name}</h3><br>
-        <h3>${phone}</h3><br>
-        <h3>${message}</h3><br>
+        <h3>Phone number: ${phone}</h3>
+        <h3>Loading address: ${loadingAddress}</h3>
+        <h3>Loading date: ${loadingDate}</h3>
+        <h3>Loading start time: ${loadingStartTime}</h3>
+        <h3>Unloading address: ${unloadingAddress}</h3>
+        <h3>Unloading date: ${unloadingDate}</h3>
+        <h3>Unloading start time: ${unloadingStartTime}</h3>
       `,
     };
 
